@@ -1,4 +1,3 @@
-
 namespace Behlog.Core;
 
 public class AggregateRoot<TId> : AggregateRoot, IAggregateRoot<TId> where TId : notnull
