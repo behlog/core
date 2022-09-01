@@ -4,9 +4,9 @@ namespace Behlog.Core;
 
 public interface IDomainEvent 
 {
-    Guid Id { get; }
+    Guid EventId { get; }
 
-    DateTime PublishedDate { get; }
+    DateTime EventPublishedDate { get; }
 
     int Version { get; }
 }

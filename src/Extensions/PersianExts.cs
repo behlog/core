@@ -47,6 +47,5 @@ public static class PersianExts
         return input;
     }
 
-    public static bool IsPhoneNumber(this string input)
-        => input.IsValidIranianMobileNumber();
+    
 }

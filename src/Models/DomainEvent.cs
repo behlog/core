@@ -6,12 +6,12 @@ public class DomainEvent : IDomainEvent
 {
     public DomainEvent()
     {
-        Id = Guid.NewGuid();
+        EventId = Guid.NewGuid();
     }
 
-    public Guid Id { get; }
+    public Guid EventId { get; }
 
-    public DateTime PublishedDate { get; }
+    public DateTime EventPublishedDate { get; }
 
     public int Version { get; }
 }
