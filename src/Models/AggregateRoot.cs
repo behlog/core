@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace Behlog.Core;
 
-public class AggregateRoot<TId> : AggregateRoot, IAggregateRoot<TId> where TId : notnull
+public class AggregateRoot<TId> : IAggregateRoot<TId>
 {
 
-    public AggregateRoot() : base(version: 1)
+    public AggregateRoot()
     {
-        
+        Version = 1;
     }
     
     public TId Id { get; protected set; } = default!;

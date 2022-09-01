@@ -1,7 +1,6 @@
 namespace Behlog.Core;
 
-public interface IEntity<TId> where TId : IIdentity<T>
-{
+public interface IEntity<TId> {
 
-    T Id  { get; }
+    TId Id  { get; }
 }

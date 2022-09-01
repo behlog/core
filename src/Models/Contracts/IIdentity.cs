@@ -2,7 +2,7 @@ using System;
 
 namespace Behlog.Core;
 
-public interface IIdentity<T> 
+public interface IIdentity<T>
 {
 
     T Value { get; }
