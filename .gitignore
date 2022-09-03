@@ -13,6 +13,11 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# MacOS and IDEAs
+.DS_Store
+.idea
+
+
 # Mono auto generated files
 mono_crash.*
 
