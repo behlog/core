@@ -47,3 +47,30 @@ public class MyCommandWithResultHandler : ICommandHandler<MyCommandWithResult, M
         return new MyCommandResult { Message = result };
     }
 }
+
+public class MyEvent : IEvent
+{
+    public MyEvent()
+    {
+        Id = Guid.NewGuid();
+    }
+    
+    public Guid Id { get;  }
+}
+
+public class MyEventHandler1 : IEventHandler<MyEvent>
+{
+    
+    public async Task HandleAsync(MyEvent message, CancellationToken cancellationToken)
+    {
+        Console.WriteLine($"Event1 : '{message.Id.ToString()}'");
+    }
+}
+
+public class MyEventHandler2 : IEventHandler<MyEvent>
+{
+    public async Task HandleAsync(MyEvent message, CancellationToken cancellationToken)
+    {
+        Console.WriteLine($"Event2 : '{message.Id.ToString()}'");
+    }
+}

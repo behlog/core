@@ -11,7 +11,7 @@ public class Mediator : IMediator
         _serviceFactory = serviceFactory;
     }
 
-    public Task<TResponse> HandleAsync<TResponse>(
+    public Task<TResponse> PublishAsync<TResponse>(
         IMessage<TResponse> message,
         CancellationToken cancellationToken = default)
     {
@@ -25,7 +25,7 @@ public class Mediator : IMediator
         return result;
     }
 
-    public async Task HandleAsync(IMessage message, CancellationToken cancellationToken = default)
+    public async Task PublishAsync(IMessage message, CancellationToken cancellationToken = default)
     {
         var targetType = message.GetType();
         var targetHandler = typeof(IMessageProcessor<>).MakeGenericType(targetType);

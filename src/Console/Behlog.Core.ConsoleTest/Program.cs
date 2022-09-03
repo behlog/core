@@ -18,8 +18,8 @@ var mediator = container.GetService<IMediator>();
 // var mycmd = new MyCommand("iman");
 // await mediator.HandleAsync(mycmd);
 
-var cmd2 = new MyCommandWithResult("iman");
-await mediator.HandleAsync(cmd2);
+var _event = new MyEvent();
+mediator.PublishAsync(_event);
 
 Console.Read();
 

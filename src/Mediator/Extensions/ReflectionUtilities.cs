@@ -13,7 +13,8 @@ public static class ReflectionUtilities
             var openCommandAndQueryInterfaces = new[]
             {
                 typeof(IQueryHandler<,>),
-                typeof(ICommandHandler<>)
+                typeof(ICommandHandler<>),
+                typeof(ICommandHandler<,>)
             };
 
             var openEventInterfaces = new[]
@@ -29,7 +30,8 @@ public static class ReflectionUtilities
         {
             var multiOpenInterfaces = new[]
             {
-                typeof(IMiddleware<,>)
+                typeof(IMiddleware<,>),
+                typeof(IMiddleware<>)
             };
 
             foreach (var multiOpenInterface in multiOpenInterfaces)
