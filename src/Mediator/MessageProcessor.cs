@@ -1,29 +1,25 @@
 namespace Behlog.Core.Mediator;
 
- public class MessageProcessor<TMessage, TResponse> : IMessageProcessor<TMessage, TResponse> where TMessage : IMessage<TResponse>
+public class MessageProcessor<TMessage> : IMessageProcessor<TMessage>
+    where TMessage : IMessage
 {
-    private readonly IEnumerable<IMessageHandler<TMessage, TResponse>> _messageHandlers;
-    private readonly IEnumerable<IMiddleware<TMessage, TResponse>> _middlewares;
-
+    private readonly IEnumerable<IMessageHandler<TMessage>> _messageHandlers;
+    private readonly IEnumerable<IMiddleware<TMessage>> _middlewares;
+    
+    
     public MessageProcessor(IServiceFactory serviceFactory)
     {
-        _messageHandlers = (IEnumerable<IMessageHandler<TMessage, TResponse>>)
-            serviceFactory.GetInstance(typeof(IEnumerable<IMessageHandler<TMessage, TResponse>>));
+        _messageHandlers = (IEnumerable<IMessageHandler<TMessage>>)
+            serviceFactory.GetInstance(typeof(IEnumerable<IMessageHandler<TMessage>>));
 
-        _middlewares = (IEnumerable<IMiddleware<TMessage, TResponse>>)
-            serviceFactory.GetInstance(typeof(IEnumerable<IMiddleware<TMessage, TResponse>>));
+        _middlewares = (IEnumerable<IMiddleware<TMessage>>)
+            serviceFactory.GetInstance(typeof(IEnumerable<IMiddleware<TMessage>>));
     }
+    
+    public Task HandleAsync(TMessage message, CancellationToken cancellationToken) 
+        => RunMiddleware(message, HandleMessageAsync, cancellationToken);
 
-    public Task<TResponse> HandleAsync(
-        TMessage message, 
-        CancellationToken cancellationToken)
-    {
-        return RunMiddleware(message, HandleMessageAsync, cancellationToken);
-    }
-
-    private async Task<TResponse> HandleMessageAsync(
-        TMessage messageObject, 
-        CancellationToken cancellationToken)
+    private async Task HandleMessageAsync(TMessage message, CancellationToken cancellationToken)
     {
         var type = typeof(TMessage);
 
@@ -34,35 +30,31 @@ namespace Behlog.Core.Mediator;
 
         if (typeof(IEvent).IsAssignableFrom(type))
         {
-            var tasks = _messageHandlers.Select(r => r.HandleAsync(messageObject, cancellationToken));
-            var result = default(TResponse);
+            var tasks = _messageHandlers.Select(_ => _.HandleAsync(message, cancellationToken));
+            foreach (var t in tasks) await t;
 
-            foreach (var task in tasks)
-            {
-                result = await task;
-            }
-
-            return result;
+            return;
         }
 
-        if (typeof(IQuery<TResponse>).IsAssignableFrom(type) || typeof(ICommand).IsAssignableFrom(type))
+        if (typeof(ICommand).IsAssignableFrom(type))
         {
-            return await _messageHandlers.Single().HandleAsync(messageObject, cancellationToken);
+            await _messageHandlers.Single().HandleAsync(message, cancellationToken);
+            return;
         }
-
+        
         throw new ArgumentException($"{typeof(TMessage).Name} is not a known type of {typeof(IMessage<>).Name} - Query, Command or Event", typeof(TMessage).FullName);
     }
 
-    private Task<TResponse> RunMiddleware(
+    private Task RunMiddleware(
         TMessage message, 
-        HandleMessageDelegate<TMessage, TResponse> handleMessageHandlerCall, 
+        HandleMessageDelegate<TMessage> handleMessageDelegate,
         CancellationToken cancellationToken)
     {
-        HandleMessageDelegate<TMessage, TResponse> next = null;
-
-        next = _middlewares.Reverse().Aggregate(handleMessageHandlerCall, (messageDelegate, middleware) =>
+        HandleMessageDelegate<TMessage> next = null;
+        next = _middlewares.Reverse().Aggregate(handleMessageDelegate, (messageDelegate, middleware) =>
             ((req, ct) => middleware.RunAsync(req, ct, messageDelegate)));
 
         return next.Invoke(message, cancellationToken);
     }
+    
 }
