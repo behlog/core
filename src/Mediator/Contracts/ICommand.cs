@@ -1,11 +1,11 @@
 namespace Behlog.Core;
 
-public interface ICommand
+public interface ICommand : IMessage
 {
     
 }
 
-public interface ICommand<TResult>
+public interface ICommand<TResult> : IMessage<TResult>
 {
     
 }
