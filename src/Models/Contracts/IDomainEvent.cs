@@ -2,7 +2,7 @@ using System;
 
 namespace Behlog.Core;
 
-public interface IDomainEvent 
+public interface IDomainEvent : IEvent
 {
     Guid EventId { get; }
 

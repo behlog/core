@@ -4,9 +4,11 @@ namespace Behlog.Core;
 
 public class AggregateRoot<TId> : IAggregateRoot<TId>
 {
+    private readonly IMediator _mediator;
 
-    public AggregateRoot()
+    public AggregateRoot(IMediator mediator)
     {
+        _mediator = mediator;
         Version = 1;
     }
     

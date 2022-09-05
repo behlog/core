@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Behlog.Core.Mediator.Extensions;
+namespace Microsoft.Extensions.DependencyInjection;
     
     /// <summary>
     /// from : https://github.com/dasiths/SimpleMediator/blob/9680205111da9f4573a06b38fa2b12949c2ac8bc/SimpleMediator.Extensions.Microsoft.DependencyInjection/ServiceCollectionExtensions.cs
@@ -15,6 +15,11 @@ namespace Behlog.Core.Mediator.Extensions;
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+
+        public static IServiceCollection AddBehlogCore(this IServiceCollection services) {
+            services.AddMediator();
+            services.AddMediatorMiddleware();
+        }
 
         /// <summary>
         /// Registers handlers and the mediator types from <see cref="AppDomain.CurrentDomain"/>.
