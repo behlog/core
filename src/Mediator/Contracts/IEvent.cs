@@ -1,11 +1,11 @@
 namespace Behlog.Core;
 
-public class IEvent : IMessage
+public interface IEvent : IMessage
 {
     
 }
 
-public class IEvent<TResult> : IMessage<TResult>
+public interface IEvent<TResult> : IMessage<TResult>
 {
     
 }

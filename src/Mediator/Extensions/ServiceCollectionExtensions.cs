@@ -1,4 +1,7 @@
 using System.Reflection;
+using Behlog.Core;
+using Behlog.Core.Mediator;
+using Behlog.Core.Mediator.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -19,6 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection;
         public static IServiceCollection AddBehlogCore(this IServiceCollection services) {
             services.AddMediator();
             services.AddMediatorMiddleware();
+            return services;
         }
 
         /// <summary>
