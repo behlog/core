@@ -4,20 +4,21 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>Behlog.Core</AssemblyName>
+    <RootNamespace>Behlog.Core</RootNamespace>
+    <TargetFrameworks>net5.0;net6.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>10</LangVersion>
+    <PackageId>Behlog.Core</PackageId>
+    <Title>Behlog CMS Core library</Title>
+    <Description>Behlog is a Persian CMS to manage website/weblog contents.</Description>
+    <Copyright>(c) 2022 Iman Nemati</Copyright>
+    <PackageProjectUrl>https://github.com/Behlog/core</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Behlog/core/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Behlog/core</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Behlog, CMS, CoreLibrary</PackageTags>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Console\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="Console\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Console\**" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="iman.Domain" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0-preview.7.22375.6" />
