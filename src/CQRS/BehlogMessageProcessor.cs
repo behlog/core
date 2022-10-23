@@ -41,7 +41,8 @@ public class BehlogMessageProcessor<TMessage> : IBehlogMessageProcessor<TMessage
             return;
         }
         
-        throw new ArgumentException($"{typeof(TMessage).Name} is not a known type of {typeof(IBehlogMessage<>).Name} - Query, Command or Event", typeof(TMessage).FullName);
+        throw new ArgumentException($"{typeof(TMessage).Name} is not a known type of {typeof(IBehlogMessage<>).Name}" + 
+                                        $" - Query, Command or Event", typeof(TMessage).FullName);
     }
 
     private Task RunMiddleware(
