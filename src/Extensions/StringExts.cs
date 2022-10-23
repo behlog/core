@@ -5,6 +5,11 @@ namespace Behlog.Extensions;
 public static class StringExts 
 {
 
+    public static bool IsNullOrEmptySpace(this string? str)
+    {
+        return string.IsNullOrWhiteSpace(str);
+    }
+    
     public static bool IsNullOrEmpty(this string input)
         => string.IsNullOrWhiteSpace(input);
 
