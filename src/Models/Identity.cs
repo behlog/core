@@ -1,5 +1,3 @@
-using System;
-
 namespace Behlog.Core;
 
 public abstract class Identity<T> : IEquatable<T> {

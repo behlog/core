@@ -1,9 +1,3 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Globalization;
-using System.Text.RegularExpressions;
-
 namespace Behlog.Extensions;
 
 public static class PersianExts 
