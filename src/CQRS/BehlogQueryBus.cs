@@ -1,5 +1,4 @@
 using System.Reflection;
-using iman.Domain;
 
 namespace Behlog.Core;
 
@@ -23,7 +22,7 @@ public class BehlogQueryBus : IBehlogQueryBus
 
         if (method == null)
         {
-            throw new InvalidQueryHandlerInstanceException(handler.Name);
+            throw new BehlogInvalidHandlerInstanceException(handler.Name);
         }
 
         return await (Task<TResponse>)method.Invoke(instance, new object[]

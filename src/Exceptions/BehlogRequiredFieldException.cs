@@ -1,9 +1,6 @@
-using System;
-using iman.Domain;
-
 namespace Behlog.Core;
 
-public class BehlogRequiredFieldException : DomainException 
+public class BehlogRequiredFieldException : BehlogException 
 {
 
     public BehlogRequiredFieldException(string fieldName)

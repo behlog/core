@@ -1,5 +1,3 @@
-using iman.Domain;
-
 namespace Behlog.Core;
 
 public class EntityStatus : Enumeration

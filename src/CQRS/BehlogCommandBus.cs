@@ -1,5 +1,4 @@
 using System.Reflection;
-using iman.Domain;
 
 namespace Behlog.Core;
 
@@ -23,7 +22,7 @@ public class BehlogCommandBus : IBehlogCommandBus
         
         if (method == null)
         {
-            throw new InvalidCommandHandlerInstanceException(handler.Name);
+            throw new BehlogInvalidHandlerInstanceException(handler.Name);
         }
 
         return await (Task<TResult>)method.Invoke(instance, new object[]
@@ -42,7 +41,7 @@ public class BehlogCommandBus : IBehlogCommandBus
             .GetMethod(nameof(IBehlogMessageProcessor<IBehlogCommand>.HandleAsync));
         if (method == null)
         {
-            throw new InvalidCommandHandlerInstanceException(handler.Name);
+            throw new BehlogInvalidHandlerInstanceException(handler.Name);
         }
 
         await (Task)method.Invoke(instance, new object[]
