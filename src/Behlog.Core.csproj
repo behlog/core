@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <AssemblyName>Behlog.Core</AssemblyName>
     <RootNamespace>Behlog.Core</RootNamespace>
-    <TargetFrameworks>net5.0;net6.0;netstandard2.1</TargetFrameworks>
+    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>10</LangVersion>
     <PackageId>Behlog.Core</PackageId>
     <Title>Behlog CMS Core library</Title>
