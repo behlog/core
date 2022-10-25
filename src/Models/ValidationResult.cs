@@ -15,10 +15,10 @@ public class ValidationResult
         ErrorCode = errorCode;
     }
 
-    public ValidationResult Create(BehlogValidationLevel level = BehlogValidationLevel.Error)
+    public static ValidationResult Create(
+        BehlogValidationLevel level = BehlogValidationLevel.Error)
     {
-        Level = level;
-        return this;
+        return new ValidationResult("", "", level, "");
     }
     
     public ValidationResult WithFiledName(string fieldName)
