@@ -12,6 +12,6 @@ public abstract class BehlogDomainEvent : IBehlogEvent
     public DateTime EventPublishedAt { get; private set; }
     
     public Guid EventId { get; private set; }
-    
-    public int EventVersion { get; private set; }
+
+    public int EventVersion { get; private set; } = 1;
 }

@@ -4,7 +4,11 @@ namespace Behlog.Core.Domain;
 
 public abstract class BehlogEntity<TId> : IBehlogEntity<TId>
 {
-    public TId Id { get; }
+    public BehlogEntity()
+    {
+    }
+    
+    public TId Id { get; set; }
 
     public override bool Equals(object? obj)
     {

@@ -5,7 +5,7 @@ public class BehlogResult
     
     private ICollection<ValidationResult> _validations;
     
-    private BehlogResult()
+    protected BehlogResult()
     {
         _validations = new List<ValidationResult>();
     }
