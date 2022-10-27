@@ -18,4 +18,9 @@ public static class CoreExts
     {
         obj.ThrowExceptionIfNull(new NullReferenceException(name));
     }
+
+    public static void ThrowIfGuidIsEmpty(this Guid value, Exception exception) {
+        if (value == default)
+            throw exception;
+    }
 }
