@@ -20,8 +20,13 @@ public interface IBehlogDbContext : IDisposable
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     
     void ExecuteRawCommand(string query, params object[] parameters);
+
+    Task ExecuteRawCommandAsync(
+        string query, object[] parameters, CancellationToken cancellationToken = default);
     
     bool EnsureCreated();
+
+    Task<bool> EnsureCreatedAsync(CancellationToken cancellationToken = default);
     
     void MigrateDb();
     
