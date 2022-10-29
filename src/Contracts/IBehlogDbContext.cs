@@ -4,10 +4,16 @@ public interface IBehlogDbContext : IDisposable
 {
 
     void BeginTransaction();
+
+    Task BeginTransactionAsync(CancellationToken cancellationToken = default);
     
     void RollbackTransaction();
+
+    Task RollbackTransactionAsync(CancellationToken cancellationToken = default);
     
     void CommitTransaction();
+
+    Task CommitTransactionAsync(CancellationToken cancellationToken = default);
 
     int SaveChanges();
 
