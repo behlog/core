@@ -1,8 +1,9 @@
+using Behlog.Core.Contracts;
+
 namespace Behlog.Core;
 
-public interface IBehlogRepository<TEntity, in TId> where TEntity : class
+public interface IBehlogWriteStore<TEntity, in TId> where TEntity : IBehlogEntity<TId>
 {
-
     Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     void MarkForAdd(TEntity entity);
@@ -14,10 +15,6 @@ public interface IBehlogRepository<TEntity, in TId> where TEntity : class
     Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     void MarkForDelete(TEntity entity);
-
-    Task<TEntity> FindAsync(TId id);
-
-    Task<IReadOnlyCollection<TEntity>> FindAllAsync(CancellationToken cancellationToken = default);
-
+    
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }
