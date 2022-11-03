@@ -44,11 +44,27 @@ public class BehlogResult
         return this;
     }
 
+    public BehlogResult AddValidationError(ValidationError error)
+    {
+        _validations.Add(error);
+        return this;
+    }
+
     public BehlogResult AddValidationError(string message)
     {
         _validations.Add(ValidationResult.Create()
             .WithMessage(message)
             .Build());
+        return this;
+    }
+
+    public BehlogResult WithValidationErrors(IEnumerable<ValidationError> errors)
+    {
+        foreach (var error in errors)
+        {
+            _validations.Add(error);
+        }
+
         return this;
     }
 
