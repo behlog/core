@@ -4,6 +4,11 @@ public class ValidationResult
 {
     private ValidationResult() { }
 
+    public ValidationResult(BehlogValidationLevel level)
+    {
+        Level = level;
+    }
+    
     public ValidationResult(
         string fieldName, string message,
         BehlogValidationLevel level = BehlogValidationLevel.Error, 
@@ -46,4 +51,18 @@ public class ValidationResult
     public BehlogValidationLevel Level { get; protected set; }
     public string ErrorCode { get; protected set; }
     public bool IsError => Level == BehlogValidationLevel.Error;
+}
+
+
+public class ValidationError : ValidationResult
+{
+    public ValidationError() : base(BehlogValidationLevel.Error)
+    {
+    }
+
+    public ValidationError(
+        string fieldName, string errorCode, string message = "")
+            : base(fieldName, message, BehlogValidationLevel.Error, errorCode)
+    {
+    }
 }
