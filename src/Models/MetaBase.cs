@@ -14,7 +14,8 @@ public abstract class MetaBase<TOwnerId> : ValueObject
 
     protected MetaBase(
         TOwnerId ownerId, string metaKey, string metaValue,
-        string metaType, string description = "", string category = "",
+        string metaType, Guid? langId, string langCode = null, 
+        string description = null, string category = null,
         int orderNum = 1)
     {
         OwnerId = ownerId;
@@ -25,13 +26,18 @@ public abstract class MetaBase<TOwnerId> : ValueObject
         Category = category;
         OrderNum = orderNum;
         Status = EntityStatus.Enabled;
+        LangId = langId;
+        LangCode = langCode;
     }
     
     public TOwnerId OwnerId { get; protected set; }
+    public string Title { get; protected set; }
     public string MetaKey { get; protected set; }
     public string MetaValue { get; protected set; }
     public string MetaType { get; protected set; }
     public EntityStatus Status { get; protected set; }
+    public Guid? LangId { get; protected set; }
+    public string LangCode { get; protected set; }
     public string Description { get; protected set; }
     public string Category { get; protected set; }
     public int OrderNum { get; protected set; }
