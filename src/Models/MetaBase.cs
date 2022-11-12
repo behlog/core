@@ -13,12 +13,13 @@ public abstract class MetaBase<TOwnerId> : ValueObject
     }
 
     protected MetaBase(
-        TOwnerId ownerId, string metaKey, string metaValue,
+        TOwnerId ownerId, string title, string metaKey, string metaValue,
         string metaType, Guid? langId, string langCode = null, 
         string description = null, string category = null,
         int orderNum = 1)
     {
         OwnerId = ownerId;
+        Title = title;
         MetaKey = metaKey;
         MetaValue = metaValue;
         MetaType = metaType;
