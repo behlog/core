@@ -2,14 +2,19 @@ using Behlog.Core.Validations;
 
 namespace Behlog.Core;
 
-public class BehlogResult
+public abstract class BehlogResult
 {
     
-    private ICollection<ValidationResult> _validations;
+    protected ICollection<ValidationResult> _validations;
     
     protected BehlogResult()
     {
         _validations = new List<ValidationResult>();
+    }
+
+    public BehlogResult(ICollection<ValidationResult> validations)
+    {
+        _validations = validations;
     }
 
     public IReadOnlyCollection<ValidationResult> Validations => _validations.ToList();
@@ -21,12 +26,7 @@ public class BehlogResult
         => Validations.Any(_ => _.Level == BehlogValidationLevel.Warning);
 
     public bool IsSuccess => !HasError;
-
-    public static BehlogResult Create()
-    {
-        return new BehlogResult();
-    }
-
+    
     public BehlogResult AddValidationError(string fieldName, string message)
     {
         _validations.Add(ValidationResult.Create()
@@ -87,4 +87,18 @@ public class BehlogResult
             .Build());
         return this;
     }
+
+
+    // public T WithValidatorResult<T>(ValidatorResult result) where T : BehlogResult
+    // {
+    //     if (result.HasError)
+    //     {
+    //         foreach (var validationResult in result.Items)
+    //         {
+    //             _validations.Add(validationResult);
+    //         }
+    //     }
+    //
+    //     return (T)this;
+    // } 
 }

@@ -1,5 +1,6 @@
 namespace Behlog.Core;
 
+
 public interface IBehlogCommand : IBehlogMessage
 {
     
