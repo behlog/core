@@ -1,3 +1,5 @@
+using Behlog.Core.Validations;
+
 namespace Behlog.Core;
 
 public class BehlogResult
