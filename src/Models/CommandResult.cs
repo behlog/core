@@ -87,11 +87,42 @@ public class CommandResult
 
 public class CommandResult<TResult> : CommandResult where TResult : class
 {
-
-    public CommandResult(TResult result)
+    
+    private CommandResult(TResult result)
     {
         Result = result;
     }
     
+    private CommandResult() { }
+
+    public static CommandResult<TResult> With(TResult result)
+    {
+        var commandResult = new CommandResult<TResult>(result);
+        return commandResult;
+    }
+
+    public static CommandResult<TResult> WithErrors(IReadOnlyCollection<ValidationError> errors)
+    {
+        var commandResult = new CommandResult<TResult>();
+        foreach (var err in errors)
+        {
+            commandResult.AddError(err);
+        }
+
+        return commandResult;
+    }
+
+
+    public static CommandResult<TResult> WithValidations(IReadOnlyCollection<ValidationResult> validations)
+    {
+        var commandResult = new CommandResult<TResult>();
+        foreach (var v in validations)
+        {
+            commandResult.AddValidation(v);
+        }
+
+        return commandResult;
+    }
+
     public TResult Result { get; }
 }
