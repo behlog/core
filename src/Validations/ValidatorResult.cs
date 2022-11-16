@@ -24,8 +24,7 @@ public class ValidatorResult
     private ICollection<ValidationResult> _items;
 
     public IReadOnlyCollection<ValidationResult> Items => _items.ToList();
-
-
+    
     public void Add(ValidationResult result)
     {
         _items.Add(result);
@@ -68,8 +67,8 @@ public class ValidatorResult
         string? value, int maxLen,
         string fieldName, string errorMessage, string errorCode = "")
     {
-        if (value is null)
-            throw new NullReferenceException(nameof(value));
+        if (value.IsNullOrEmptySpace())
+            return this;
 
         if (value.Length > maxLen)
         {
@@ -92,6 +91,9 @@ public class ValidatorResult
     public ValidatorResult IsEmailFormatCorrect(
         string email, string fieldName, string errorMessage, string errorCode = "")
     {
+        if (email.IsNullOrEmptySpace()) 
+            throw new ArgumentNullException(nameof(email));
+        
         if (!EmailValidator.IsValid(email))
         {
             AddError(fieldName, errorMessage, errorCode);
