@@ -7,19 +7,114 @@ public static class PersianExts
     private const string _IRAN_MOBILE_PREFIX = "98";
     private static readonly System.Type _typeOfString = typeof(string);
 
-    public const char ArabicYeChar = (char)1610;
-    public const char PersianYeChar = (char)1740;
+    #region consts
 
+    /// <summary>
+    /// Arabic Ke Char \u0643 = ARABIC LETTER KAF
+    /// </summary>
     public const char ArabicKeChar = (char)1603;
+
+    /// <summary>
+    /// Arabic Ye Char \u0649 = ARABIC LETTER ALEF MAKSURA
+    /// </summary>
+    public const char ArabicYeChar1 = (char)1609;
+
+    /// <summary>
+    /// Arabic Ye Char \u064A = ARABIC LETTER YEH
+    /// </summary>
+    public const char ArabicYeChar2 = (char)1610;
+
+    /// <summary>
+    /// ؠ
+    /// </summary>
+    public const char ArabicYeWithOneDotBelow = (char)1568;
+
+    /// <summary>
+    /// ؽ
+    /// </summary>
+    public const char ArabicYeWithInvertedV = (char)1597;
+
+    /// <summary>
+    /// ؾ
+    /// </summary>
+    public const char ArabicYeWithTwoDotsAbove = (char)1598;
+
+    /// <summary>
+    /// ؿ
+    /// </summary>
+    public const char ArabicYeWithThreeDotsAbove = (char)1599;
+
+    /// <summary>
+    /// ٸ
+    /// </summary>
+    public const char ArabicYeWithHighHamzeYeh = (char)1656;
+
+    /// <summary>
+    /// ې
+    /// </summary>
+    public const char ArabicYeWithFinalForm = (char)1744;
+
+    /// <summary>
+    /// ۑ
+    /// </summary>
+    public const char ArabicYeWithThreeDotsBelow = (char)1745;
+
+    /// <summary>
+    /// ۍ
+    /// </summary>
+    public const char ArabicYeWithTail = (char)1741;
+
+    /// <summary>
+    /// ێ
+    /// </summary>
+    public const char ArabicYeSmallV = (char)1742;
+
+    /// <summary>
+    /// Persian Ke Char \u06A9 = ARABIC LETTER KEHEH
+    /// </summary>
     public const char PersianKeChar = (char)1705;
 
-    public static string CorrectYeKe(this string data)
+    /// <summary>
+    /// Persian Ye Char \u06CC = 'ARABIC LETTER FARSI YEH
+    /// </summary>
+    public const char PersianYeChar = (char)1740;
+
+    #endregion
+
+    /// <summary>
+    /// from : https://github.com/VahidN/DNTPersianUtils.Core/blob/master/src/DNTPersianUtils.Core/YeKe.cs
+    /// </summary>
+    /// <returns>Corrected text.</returns>
+    public static string CorrectYeKe(this string? data)
     {
-        return string.IsNullOrWhiteSpace(data)
-            ? data
-            : data.Replace(ArabicYeChar, PersianYeChar)
-                .Replace(ArabicKeChar, PersianKeChar)
-                .Trim();
+        if (string.IsNullOrWhiteSpace(data)) return string.Empty;
+
+        var dataChars = data.ToCharArray();
+        for (var i = 0; i < dataChars.Length; i++)
+        {
+            switch (dataChars[i])
+            {
+                case ArabicYeChar1:
+                case ArabicYeChar2:
+                case ArabicYeWithOneDotBelow:
+                case ArabicYeWithInvertedV:
+                case ArabicYeWithTwoDotsAbove:
+                case ArabicYeWithThreeDotsAbove:
+                case ArabicYeWithHighHamzeYeh:
+                case ArabicYeWithFinalForm:
+                case ArabicYeWithThreeDotsBelow:
+                case ArabicYeWithTail:
+                case ArabicYeSmallV:
+                    dataChars[i] = PersianYeChar;
+                    break;
+
+                case ArabicKeChar:
+                    dataChars[i] = PersianKeChar;
+                    break;
+            }
+        }
+
+        return new string(dataChars);
     }
 
     public static string DeNormalizePhoneNumber(this string input)

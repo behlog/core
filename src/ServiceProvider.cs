@@ -21,7 +21,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddBehlogCore(this IServiceCollection services) {
             services.AddHttpContextAccessor();
             services.AddScoped<IBehlogApplicationContext, BehlogApplicationContext>();
-
+            services.AddScoped<ISystemDateTime, SystemDateTime>();
+            
             return services;
         }
     }

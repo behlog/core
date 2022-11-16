@@ -10,7 +10,7 @@ public interface ISystemDateTime
 
     DateTime UtcNow { get; }
 
-    string NowPersian();
+    string PersianNow();
 
-    string NowPersianFriendly();
+    string PersianFriendlyNow();
 }
