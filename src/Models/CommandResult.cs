@@ -26,8 +26,7 @@ public class CommandResult
     {
         return new CommandResult();
     }
-
-
+    
     public CommandResult WithErrors(IReadOnlyCollection<ValidationError> errors)
     {
         foreach (var error in errors)
@@ -88,12 +87,12 @@ public class CommandResult
 public class CommandResult<TResult> : CommandResult where TResult : class
 {
     
-    private CommandResult(TResult result)
+    protected CommandResult(TResult result)
     {
         Result = result;
     }
     
-    private CommandResult() { }
+    protected CommandResult() { }
 
     public static CommandResult<TResult> With(TResult result)
     {
