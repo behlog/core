@@ -6,7 +6,7 @@ namespace Behlog.Core.Models;
 public class CommandResult
 {
 
-    private ICollection<ValidationResult> _validations;
+    protected ICollection<ValidationResult> _validations;
 
     protected CommandResult()
     {
@@ -43,6 +43,15 @@ public class CommandResult
         _validations.Add(error);
         
         return this;
+    }
+    
+    public static CommandResult FailedWith(ValidationError error)
+    {
+        error.ThrowExceptionIfArgumentIsNull(nameof(error));
+        var commandResult = new CommandResult();
+        commandResult.AddError(error);
+
+        return commandResult;
     }
 
 
@@ -97,6 +106,22 @@ public class CommandResult<TResult> : CommandResult where TResult : class
     public static CommandResult<TResult> With(TResult result)
     {
         var commandResult = new CommandResult<TResult>(result);
+        return commandResult;
+    }
+    
+    public CommandResult<TResult> AddError(ValidationError error)
+    {
+        error.ThrowExceptionIfArgumentIsNull(nameof(error));
+        _validations.Add(error);
+        
+        return this;
+    }
+
+    public static CommandResult<TResult> FailedWith(ValidationError error)
+    {
+        error.ThrowExceptionIfArgumentIsNull(nameof(error));
+        var commandResult = new CommandResult<TResult>();
+        commandResult.AddError(error);
         return commandResult;
     }
 
