@@ -8,7 +8,7 @@ public static class ServiceProvider
     
         public static IServiceCollection AddBehlogCQRS(this IServiceCollection services) {
             services.AddBehlogManager();
-            services.AddBehlogManager();
+            services.AddBehlogMiddleware();
             return services;
         }
 
