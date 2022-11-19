@@ -46,6 +46,11 @@ public class BehlogMessageProcessor<TMessage, TResponse> :
             return result;
         }
 
+        if (typeof(IBehlogCommand<TResponse>).IsAssignableFrom(type))
+        {
+            return await _messageHandlers.Single().HandleAsync(messageObject, cancellationToken);
+        }
+
         if (typeof(IBehlogQuery<TResponse>).IsAssignableFrom(type) || typeof(IBehlogCommand).IsAssignableFrom(type))
         {
             return await _messageHandlers.Single().HandleAsync(messageObject, cancellationToken);

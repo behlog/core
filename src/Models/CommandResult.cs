@@ -55,6 +55,20 @@ public class CommandResult
     }
 
 
+    public static CommandResult FailedWith(IReadOnlyCollection<ValidationError> errors)
+    {
+        if (errors is null || !errors.Any())
+            throw new ArgumentNullException(nameof(errors));
+
+        var result = Create();
+        foreach (var err in errors)
+        {
+            result.AddError(err);
+        }
+
+        return result;
+    }
+    
     public CommandResult AddValidation(ValidationResult validation)
     {
         validation.ThrowExceptionIfArgumentIsNull(nameof(validation));
@@ -92,61 +106,3 @@ public class CommandResult
     }
 }
 
-
-public class CommandResult<TResult> : CommandResult where TResult : class
-{
-    
-    protected CommandResult(TResult result)
-    {
-        Result = result;
-    }
-    
-    protected CommandResult() { }
-
-    public static CommandResult<TResult> With(TResult result)
-    {
-        var commandResult = new CommandResult<TResult>(result);
-        return commandResult;
-    }
-    
-    public CommandResult<TResult> AddError(ValidationError error)
-    {
-        error.ThrowExceptionIfArgumentIsNull(nameof(error));
-        _validations.Add(error);
-        
-        return this;
-    }
-
-    public static CommandResult<TResult> FailedWith(ValidationError error)
-    {
-        error.ThrowExceptionIfArgumentIsNull(nameof(error));
-        var commandResult = new CommandResult<TResult>();
-        commandResult.AddError(error);
-        return commandResult;
-    }
-
-    public static CommandResult<TResult> WithErrors(IReadOnlyCollection<ValidationError> errors)
-    {
-        var commandResult = new CommandResult<TResult>();
-        foreach (var err in errors)
-        {
-            commandResult.AddError(err);
-        }
-
-        return commandResult;
-    }
-
-
-    public static CommandResult<TResult> WithValidations(IReadOnlyCollection<ValidationResult> validations)
-    {
-        var commandResult = new CommandResult<TResult>();
-        foreach (var v in validations)
-        {
-            commandResult.AddValidation(v);
-        }
-
-        return commandResult;
-    }
-
-    public TResult Result { get; }
-}
