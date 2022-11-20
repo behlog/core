@@ -15,13 +15,13 @@ public abstract class BaseViewModel
         Errors = new Dictionary<string, string>();
     }
     
-    public string ModelMessage { get; set; }
+    public string? ModelMessage { get; set; }
     
-    public string ErrorFieldName { get; set; }
+    public string? ErrorFieldName { get; set; }
     
-    public bool HasError { get; set; }
+    public bool HasError { get; protected set; }
     
-    public bool Success { get; set; }
+    public bool Success { get; private set; }
 
     public Dictionary<string, string> Errors { get; protected set; }
 
@@ -34,7 +34,7 @@ public abstract class BaseViewModel
         AddError(message, filedName);
     }
 
-    public void AddError(string message, string fieldName)
+    public void AddError(string message, string? fieldName = null)
     {
         string key = fieldName;
         _errorIndex++;
@@ -62,5 +62,11 @@ public abstract class BaseViewModel
 
             return sb.ToString();
         }
+    }
+
+    public void Succeed(string? message = null)
+    {
+        ModelMessage = message;
+        Success = true;
     }
 }
