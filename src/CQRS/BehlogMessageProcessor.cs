@@ -24,7 +24,7 @@ public class BehlogMessageProcessor<TMessage> : IBehlogMessageProcessor<TMessage
 
         if (!_messageHandlers.Any())
         {
-            throw new ArgumentException($"No handler of signature {typeof(IBehlogMessageHandler<,>).Name} was found for {typeof(TMessage).Name}", typeof(TMessage).FullName);
+            throw new ArgumentException($"No handler of signature {typeof(IBehlogMessageHandler<>).Name} was found for {typeof(TMessage).Name}", typeof(TMessage).FullName);
         }
 
         if (typeof(IBehlogEvent).IsAssignableFrom(type))

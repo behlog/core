@@ -9,13 +9,13 @@ namespace Behlog.Core;
 /// Base class for all Behlog CommandHandlers (see: <see cref="BehlogCommandHandler{TCommand,TResult}"/>>,
 /// Providing EventPublishing and logging capabilities for <see cref="IAggregateRoot{TId}"/>
 /// </summary>
-public abstract class BehlogBaseCommandHandler
+public class BehlogHelper : IBehlogHelper
 {
-    private readonly ILogger<BehlogBaseCommandHandler> _logger;
+    private readonly ILogger<BehlogHelper> _logger;
     private readonly IBehlogManager _manager;
     private readonly ISystemDateTime _dateTime;
 
-    protected BehlogBaseCommandHandler(
+    protected BehlogHelper(
         ILogger logger, IBehlogManager manager, ISystemDateTime dateTime)
     {
         _manager = manager ?? throw new ArgumentNullException(nameof(manager));
@@ -24,7 +24,7 @@ public abstract class BehlogBaseCommandHandler
     }
 
 
-    protected async Task PublishAsync<TAggregate, TId>(
+    public async Task PublishAsync<TAggregate, TId>(
         TAggregate aggregate, CancellationToken cancellationToken = default) 
             where TAggregate : IAggregateRoot<TId>
     {
@@ -43,21 +43,21 @@ public abstract class BehlogBaseCommandHandler
         return $"{now.Year}-{now.Month}-{now.Day} {now.Hour}:{now.Minute}:{now.Second}-{now.Millisecond}";
     }
     
-    protected void LogInfo(string what)
+    public void LogInfo(string what)
     {
         if(what.IsNullOrEmpty()) return;
         
         _logger.LogInformation($"{get_log_time()} [Behlog.Info]: {what}");
     }
 
-    protected void LogError(string error)
+    public void LogError(string error)
     {
         if(error.IsNullOrEmpty()) return;
         
         _logger.LogError($"{get_log_time()} [Behlog.Error]: {error}");
     }
 
-    protected void LogException(Exception exception)
+    public void LogException(Exception exception)
     {
         exception.ThrowExceptionIfArgumentIsNull(nameof(exception));
 
