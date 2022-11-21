@@ -1,6 +1,6 @@
 namespace Behlog.Core.Contracts;
 
-public interface IBehlogHelper
+public interface IBehlogMediatorAssistant
 {
     
     Task PublishAsync<TAggregate, TId>(

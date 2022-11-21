@@ -1,6 +1,6 @@
 namespace Behlog.Core;
 
-public interface IBehlogManager
+public interface IBehlogMediator
 {
     
     Task<TResponse> PublishAsync<TResponse>(

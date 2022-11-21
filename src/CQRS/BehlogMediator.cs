@@ -3,11 +3,11 @@ using Behlog.Extensions;
 
 namespace Behlog.Core;
 
-public class BehlogManager : IBehlogManager
+public class BehlogMediator : IBehlogMediator
 {
     private readonly IBehlogServiceFactory _serviceFactory;
 
-    public BehlogManager(IBehlogServiceFactory serviceFactory)
+    public BehlogMediator(IBehlogServiceFactory serviceFactory)
     {
         _serviceFactory = serviceFactory;
     }

@@ -6,21 +6,21 @@ using Behlog.Extensions;
 namespace Behlog.Core;
 
 /// <summary>
-/// Base class for all Behlog CommandHandlers (see: <see cref="BehlogCommandHandler{TCommand,TResult}"/>>,
+/// Helper class for all Behlog CommandHandlers (see: <see cref="BehlogCommandHandler{TCommand,TResult}"/>>,
 /// Providing EventPublishing and logging capabilities for <see cref="IAggregateRoot{TId}"/>
 /// </summary>
-public class BehlogHelper : IBehlogHelper
+public class BehlogMediatorAssistant : IBehlogMediatorAssistant
 {
-    private readonly ILogger<BehlogHelper> _logger;
-    private readonly IBehlogManager _manager;
+    private readonly ILogger<BehlogMediatorAssistant> _logger;
+    private readonly IBehlogMediator _mediator;
     private readonly ISystemDateTime _dateTime;
 
-    protected BehlogHelper(
-        ILogger logger, IBehlogManager manager, ISystemDateTime dateTime)
+    protected BehlogMediatorAssistant(
+        ILogger<BehlogMediatorAssistant> logger, IBehlogMediator mediator, ISystemDateTime dateTime)
     {
-        _manager = manager ?? throw new ArgumentNullException(nameof(manager));
+        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _dateTime = dateTime ?? throw new ArgumentNullException(nameof(dateTime));
-        logger = _logger ?? throw new ArgumentNullException(nameof(logger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
 
@@ -31,7 +31,7 @@ public class BehlogHelper : IBehlogHelper
         var typeName = typeof(TAggregate).Name;
         _logger.LogInformation($"Publishing {typeName} started...");
 
-        await _manager.PublishAsync(aggregate.GetAllEvents(), cancellationToken);
+        await _mediator.PublishAsync(aggregate.GetAllEvents(), cancellationToken);
         
         _logger.LogInformation($"All events for '{typeName}' published successfully.");
     }

@@ -301,7 +301,7 @@ public static class ReflectionUtilities
         services.AddScoped<IBehlogServiceFactory, BehlogServiceFactory>();
         services.AddScoped(typeof(IBehlogMessageProcessor<>), typeof(BehlogMessageProcessor<>));
         services.AddScoped(typeof(IBehlogMessageProcessor<,>), typeof(BehlogMessageProcessor<,>));
-        services.AddScoped<IBehlogManager, BehlogManager>();
+        services.AddScoped<IBehlogMediator, BehlogMediator>();
         services.AddScoped<IBehlogCommandBus, BehlogCommandBus>();
         services.AddScoped<IBehlogQueryBus, BehlogQueryBus>();
     }
