@@ -1,4 +1,6 @@
 using System.Reflection;
+using Behlog.Core;
+using Behlog.Core.Contracts;
 using Behlog.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -9,6 +11,8 @@ public static class ServiceProvider
         public static IServiceCollection AddBehlogCQRS(this IServiceCollection services) {
             services.AddBehlogManager();
             services.AddBehlogMiddleware();
+            // services.AddScoped<IBehlogMediatorAssistant, BehlogMediatorAssistant>();
+            
             return services;
         }
 

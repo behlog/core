@@ -22,6 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHttpContextAccessor();
             services.AddScoped<IBehlogApplicationContext, BehlogApplicationContext>();
             services.AddScoped<ISystemDateTime, SystemDateTime>();
+            services.AddScoped<IBehlogMediatorAssistant, BehlogMediatorAssistant>();
             services.AddBehlogCQRS();
             
             return services;

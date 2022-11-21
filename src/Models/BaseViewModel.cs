@@ -21,7 +21,7 @@ public abstract class BaseViewModel
     
     public bool HasError { get; protected set; }
     
-    public bool Success { get; private set; }
+    public bool Success { get; protected set; }
 
     public Dictionary<string, string> Errors { get; protected set; }
 
@@ -48,6 +48,7 @@ public abstract class BaseViewModel
         }
         
         Errors.Add(key, message);
+        HasError = true;
     }
 
     public string ErrorMessages

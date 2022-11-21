@@ -15,15 +15,15 @@ public class BehlogMediatorAssistant : IBehlogMediatorAssistant
     private readonly IBehlogMediator _mediator;
     private readonly ISystemDateTime _dateTime;
 
-    protected BehlogMediatorAssistant(
+    public BehlogMediatorAssistant(
         ILogger<BehlogMediatorAssistant> logger, IBehlogMediator mediator, ISystemDateTime dateTime)
     {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _dateTime = dateTime ?? throw new ArgumentNullException(nameof(dateTime));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
-
-
+    
+    
     public async Task PublishAsync<TAggregate, TId>(
         TAggregate aggregate, CancellationToken cancellationToken = default) 
             where TAggregate : IAggregateRoot<TId>
