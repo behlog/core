@@ -1,6 +1,8 @@
+using System.Text;
 using Behlog.Extensions;
 
 namespace Behlog.Core.Validations;
+
 
 public class ValidatorResult
 {
@@ -14,6 +16,26 @@ public class ValidatorResult
     protected ValidatorResult()
     {
         _items = new List<ValidationResult>();
+    }
+    
+    public override string ToString()
+    {
+        if (_items.Any())
+        {
+            var sb = new StringBuilder();
+            foreach (var item in _items)
+            {
+                string msg = "";
+                if (item.IsError && item.ErrorCode.IsNotNullOrEmpty())
+                    msg = $"({item.ErrorCode})";
+                msg += $" {item.Message}";
+                sb.AppendLine($"{item.Level} {item.FieldName} : {msg}");
+            }
+
+            return sb.ToString();
+        }
+        
+        return "[Success] No Validation items!";
     }
 
     public static ValidatorResult Create()

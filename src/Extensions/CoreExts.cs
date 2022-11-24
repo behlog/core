@@ -1,3 +1,5 @@
+using Behlog.Core;
+
 namespace Behlog.Extensions;
 
 public static class CoreExts
@@ -23,4 +25,13 @@ public static class CoreExts
         if (value == default)
             throw exception;
     }
+
+    public static string ToDisplay(this BehlogValidationLevel level)
+        => level switch
+        {
+            BehlogValidationLevel.Error => "[Error]",
+            BehlogValidationLevel.Info => "[Info]",
+            BehlogValidationLevel.Warning => "[Warning]",
+            _=> "[!NULL]"
+        };
 }
