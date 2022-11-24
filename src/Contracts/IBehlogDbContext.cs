@@ -31,5 +31,7 @@ public interface IBehlogDbContext : IDisposable
     void MigrateDb();
     
     Task MigrateDbAsync(CancellationToken cancellationToken = default);
-    
+
+    bool CheckDatabaseExist();
+
 }
