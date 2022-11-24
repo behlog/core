@@ -1,3 +1,5 @@
+using Behlog.Extensions;
+
 namespace Behlog.Core.Validations;
 
 public class ValidationResult
@@ -52,5 +54,14 @@ public class ValidationResult
     public string ErrorCode { get; protected set; }
     public bool IsError => Level == BehlogValidationLevel.Error;
     public bool IsWarning => Level == BehlogValidationLevel.Warning;
+
+    public override string ToString()
+    {
+        string msg = "";
+        if(IsError && ErrorCode.IsNotNullOrEmpty())
+            msg = $"({ErrorCode})";
+        msg += $"{Message}";
+        return $"{Level.ToDisplay()} {FieldName}: {msg}";
+    }
 }
 

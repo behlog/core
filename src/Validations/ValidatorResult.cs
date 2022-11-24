@@ -25,11 +25,7 @@ public class ValidatorResult
             var sb = new StringBuilder();
             foreach (var item in _items)
             {
-                string msg = "";
-                if (item.IsError && item.ErrorCode.IsNotNullOrEmpty())
-                    msg = $"({item.ErrorCode})";
-                msg += $" {item.Message}";
-                sb.AppendLine($"{item.Level} {item.FieldName} : {msg}");
+                sb.AppendLine(item.ToString());
             }
 
             return sb.ToString();
