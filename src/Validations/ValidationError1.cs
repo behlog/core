@@ -1,6 +1,5 @@
-using Microsoft.Extensions.Logging.Abstractions;
-
 namespace Behlog.Core.Validations;
+
 
 public class ValidationError1 : ValidationResult1, IValidationResult
 {

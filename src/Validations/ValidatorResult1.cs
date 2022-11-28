@@ -94,16 +94,19 @@ public class ValidatorResult1
 
     private void AddError(ValidationError1 error)
     {
+        _errors.Add(error);
         _items.Add(error);
     }
 
     private void AddWarning(ValidationWarning warning)
     {
+        _warnings.Add(warning);
         _items.Add(warning);
     }
 
     private void AddInfo(ValidationInfo info)
     {
+        _infos.Add(info);
         _items.Add(info);
     }
     
