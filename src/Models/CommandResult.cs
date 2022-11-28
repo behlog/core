@@ -2,11 +2,11 @@ using Behlog.Core.Validations;
 
 namespace Behlog.Core.Models;
 
-public class CommandResult1
+public class CommandResult
 {
     protected ICollection<IValidationResult> _validations;
 
-    protected CommandResult1()
+    protected CommandResult()
     {
         _validations = new List<IValidationResult>();
         _errors = new List<ValidationError>();
@@ -24,19 +24,19 @@ public class CommandResult1
     public bool HasWarning => _warnings.Any();
 
 
-    public static CommandResult1 Create()
+    public static CommandResult Create()
     {
-        return new CommandResult1();
+        return new CommandResult();
     }
 
-    public static CommandResult1 Failed(ValidationError error)
+    public static CommandResult Failed(ValidationError error)
     {
         var result = Create();
         result.AddError(error);
         return result;
     }
 
-    public static CommandResult1 Failed(IEnumerable<ValidationError> errors)
+    public static CommandResult Failed(IEnumerable<ValidationError> errors)
     {
         var result = Create();
         foreach (var err in errors)
@@ -48,19 +48,19 @@ public class CommandResult1
     }
 
 
-    public static CommandResult1 Success()
+    public static CommandResult Success()
     {
         return Create();
     }
 
-    public static CommandResult1 Success(ValidationWarning warning)
+    public static CommandResult Success(ValidationWarning warning)
     {
         var result = Create();
         result.AddWarning(warning);
         return result;
     }
 
-    public static CommandResult1 Success(IEnumerable<ValidationWarning> warnings)
+    public static CommandResult Success(IEnumerable<ValidationWarning> warnings)
     {
         var result = Create();
         foreach (var w in warnings)
@@ -71,7 +71,7 @@ public class CommandResult1
         return result;
     }
 
-    public static CommandResult1 Success(ValidationInfo info)
+    public static CommandResult Success(ValidationInfo info)
     {
         var result = Create();
         result.AddInfo(info);
