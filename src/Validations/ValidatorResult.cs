@@ -15,10 +15,13 @@ public class ValidatorResult
         _warnings = new List<ValidationWarning>();
     }
 
+    public bool HasError => _errors.Any();
+
+    public bool HasWarning => _warnings.Any();
+    
     public IReadOnlyCollection<IValidationResult> Validations
         => _items.ToList();
-
-
+    
     public IReadOnlyCollection<ValidationError> Errors
         => _errors.ToList();
 

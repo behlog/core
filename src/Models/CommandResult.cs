@@ -78,19 +78,19 @@ public class CommandResult
         return result;
     }
 
-    private void AddError(ValidationError error)
+    protected void AddError(ValidationError error)
     {
         _validations.Add(error);
         _errors.Add(error);
     }
 
-    private void AddWarning(ValidationWarning warning)
+    protected void AddWarning(ValidationWarning warning)
     {
         _validations.Add(warning);
         _warnings.Add(warning);
     }
 
-    private void AddInfo(ValidationInfo info)
+    protected void AddInfo(ValidationInfo info)
     {
         _validations.Add(info);
         _infos.Add(info);
