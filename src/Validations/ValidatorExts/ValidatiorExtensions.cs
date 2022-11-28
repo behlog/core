@@ -61,7 +61,7 @@ public static partial class ValidatorExtensions
         if (!EmailValidator.IsValid(email))
         {
             return result.WithError(ValidationError
-                .Create(fieldName, errorMessage, errorCode));
+                .Create(fieldName, errorCode, errorMessage));
         }
 
         return result;

@@ -115,5 +115,4 @@ public class ValidatorResult
         _items.Add(info);
     }
     
-    
 }
