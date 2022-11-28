@@ -1,6 +1,6 @@
 namespace Behlog.Core.Validations;
 
-public class ValidationWarning : ValidationResult1, IValidationResult
+public class ValidationWarning : ValidationResult, IValidationResult
 {
     
     protected ValidationWarning() : base(BehlogValidationLevel.Warning)

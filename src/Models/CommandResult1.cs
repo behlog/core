@@ -9,12 +9,12 @@ public class CommandResult1
     protected CommandResult1()
     {
         _validations = new List<IValidationResult>();
-        _errors = new List<ValidationError1>();
+        _errors = new List<ValidationError>();
         _warnings = new List<ValidationWarning>();
         _infos = new List<ValidationInfo>();
     }
 
-    protected ICollection<ValidationError1> _errors;
+    protected ICollection<ValidationError> _errors;
     protected ICollection<ValidationWarning> _warnings;
     protected ICollection<ValidationInfo> _infos;
 
@@ -29,14 +29,14 @@ public class CommandResult1
         return new CommandResult1();
     }
 
-    public static CommandResult1 Failed(ValidationError1 error)
+    public static CommandResult1 Failed(ValidationError error)
     {
         var result = Create();
         result.AddError(error);
         return result;
     }
 
-    public static CommandResult1 Failed(IEnumerable<ValidationError1> errors)
+    public static CommandResult1 Failed(IEnumerable<ValidationError> errors)
     {
         var result = Create();
         foreach (var err in errors)
@@ -78,7 +78,7 @@ public class CommandResult1
         return result;
     }
 
-    private void AddError(ValidationError1 error)
+    private void AddError(ValidationError error)
     {
         _validations.Add(error);
         _errors.Add(error);

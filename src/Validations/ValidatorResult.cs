@@ -1,123 +1,114 @@
-using System.Text;
-using Behlog.Extensions;
-
 namespace Behlog.Core.Validations;
-
 
 public class ValidatorResult
 {
-
-    public bool HasError => _items.Any(_ => _.IsError);
-
-    public bool IsValid => !HasError;
-
-    public bool HasWarning => _items.Any(_ => _.IsWarning);
+    private ICollection<IValidationResult> _items;
+    private ICollection<ValidationError> _errors;
+    private ICollection<ValidationInfo> _infos;
+    private ICollection<ValidationWarning> _warnings;
 
     protected ValidatorResult()
     {
-        _items = new List<ValidationResult>();
+        _items = new List<IValidationResult>();
+        _errors = new List<ValidationError>();
+        _infos = new List<ValidationInfo>();
+        _warnings = new List<ValidationWarning>();
     }
-    
-    public override string ToString()
-    {
-        if (_items.Any())
-        {
-            var sb = new StringBuilder();
-            foreach (var item in _items)
-            {
-                sb.AppendLine(item.ToString());
-            }
 
-            return sb.ToString();
-        }
-        
-        return "[Success] No Validation items!";
-    }
+    public IReadOnlyCollection<IValidationResult> Validations
+        => _items.ToList();
+
+
+    public IReadOnlyCollection<ValidationError> Errors
+        => _errors.ToList();
+
+
+    public IReadOnlyCollection<ValidationWarning> Warnings
+        => _warnings.ToList();
+
+    
+    public IReadOnlyCollection<ValidationInfo> Info
+        => _infos.ToList();
 
     public static ValidatorResult Create()
     {
         return new ValidatorResult();
     }
 
-    private ICollection<ValidationResult> _items;
-
-    public IReadOnlyCollection<ValidationResult> Items => _items.ToList();
-    
-    public void Add(ValidationResult result)
+    public static ValidatorResult Failed(ValidationError error)
     {
-        _items.Add(result);
+        var result = new ValidatorResult();
+        result.AddError(error);
+        return result;
     }
 
-    public void AddError(ValidationError error)
+    public static ValidatorResult Success()
     {
+        return Create();
+    }
+
+    public static ValidatorResult Success(ValidationInfo info)
+    {
+        return Create().WithInfo(info);
+    }
+
+    public static ValidatorResult Success(ValidationWarning warning)
+    {
+        return Create().WithWarning(warning);
+    }
+
+    public static ValidatorResult Failed(IEnumerable<ValidationError> errors)
+    {
+        var result = Create();
+        foreach (var err in errors)
+        {
+            result.AddError(err);
+        }
+
+        return result;
+    }
+
+    public static ValidatorResult Failed(Exception exception)
+    {
+        var result = Create().WithError(ValidationError.Create(exception));
+        return result;
+    } 
+
+    public ValidatorResult WithError(ValidationError error)
+    {
+        AddError(error);
+        return this;
+    }
+
+    public ValidatorResult WithInfo(ValidationInfo info)
+    {
+        AddInfo(info);
+        return this;
+    }
+
+    public ValidatorResult WithWarning(ValidationWarning warning)
+    {
+        AddWarning(warning);
+        return this;
+    }
+
+    private void AddError(ValidationError error)
+    {
+        _errors.Add(error);
         _items.Add(error);
     }
 
-    public void AddInfo(string filedName, string message)
+    private void AddWarning(ValidationWarning warning)
     {
-        _items.Add(ValidationResult.Create(BehlogValidationLevel.Info)
-            .WithFiledName(filedName)
-            .WithMessage(message)
-            .Build()
-        );
+        _warnings.Add(warning);
+        _items.Add(warning);
     }
 
-    public void AddWarning(string fieldName, string message)
+    private void AddInfo(ValidationInfo info)
     {
-        _items.Add(ValidationResult.Create(BehlogValidationLevel.Warning)
-            .WithFiledName(fieldName)
-            .WithMessage(message)
-            .Build()
-        );
+        _infos.Add(info);
+        _items.Add(info);
     }
-
-    public void AddError(string fieldName, string message, string errorCode)
-    {
-        _items.Add(ValidationResult.Create()
-            .WithFiledName(fieldName)
-            .WithMessage(message)
-            .WithErrorCode(errorCode)
-            .Build()
-        );
-    }
-
-    public ValidatorResult HasMaxLenght(
-        string? value, int maxLen,
-        string fieldName, string errorMessage, string errorCode = "")
-    {
-        if (value.IsNullOrEmptySpace())
-            return this;
-
-        if (value.Length > maxLen)
-        {
-            AddError(fieldName, errorMessage, errorCode);
-        }
-        return this;
-    }
-
-    public ValidatorResult IsNotNullOrEmpty(
-        string value, string fieldName, string errorMessage, string errorCode = "")
-    {
-        if (value.IsNullOrEmptySpace())
-        {
-            AddError(fieldName, errorMessage, errorCode);
-        }
-
-        return this;
-    }
-
-    public ValidatorResult IsEmailFormatCorrect(
-        string email, string fieldName, string errorMessage, string errorCode = "")
-    {
-        if (email.IsNullOrEmptySpace()) 
-            throw new ArgumentNullException(nameof(email));
-        
-        if (!EmailValidator.IsValid(email))
-        {
-            AddError(fieldName, errorMessage, errorCode);
-        }
-
-        return this;
-    }
+    
     
 }

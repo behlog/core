@@ -1,7 +1,7 @@
 namespace Behlog.Core.Validations;
 
 
-public class ValidationInfo : ValidationResult1, IValidationResult
+public class ValidationInfo : ValidationResult, IValidationResult
 {
 
     private ValidationInfo() : base(BehlogValidationLevel.Info)
