@@ -2,6 +2,7 @@ using Behlog.Core.Validations;
 
 namespace Behlog.Core.Models;
 
+
 public class CommandResult<TValue> : CommandResult where TValue : class
 {
 

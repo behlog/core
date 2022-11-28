@@ -17,6 +17,8 @@ public class ValidatorResult
 
     public bool HasError => _errors.Any();
 
+    public bool IsValid => !HasError;
+
     public bool HasWarning => _warnings.Any();
     
     public IReadOnlyCollection<IValidationResult> Validations
