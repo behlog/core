@@ -16,6 +16,8 @@ public class ValidationError1 : ValidationResult1, IValidationResult
     
     public Exception Exception { get; private set; }
     
+    public string ErrorCode { get; private set; }
+    
 
     public static ValidationError1 Create(string message)
     {
@@ -35,6 +37,39 @@ public class ValidationError1 : ValidationResult1, IValidationResult
         return this;
     }
 
+    public ValidationError1 WithErrorCode(string errorCode)
+    {
+        ErrorCode = errorCode;
+        return this;
+    }
+
+    public static ValidationError1 Create(string errorCode, string message)
+    {
+        return new ValidationError1(message)
+        {
+            ErrorCode = errorCode
+        };
+    }
+
+    public static ValidationError1 Create(string fieldName, string errorCode, string message)
+    {
+        return new ValidationError1(message)
+        {
+            ErrorCode = errorCode,
+            FieldName = fieldName
+        };
+    }
+
+    public static ValidationError1 Create(Exception exception)
+    {
+        var baseException = exception.GetBaseException();
+        
+        return Create(baseException.Message)
+            .WithErrorCode(baseException.HResult.ToString())
+            .WithException(baseException);
+    }
+    
+    
     public void ThrowIfHasAnyException(Exception exception = null)
     {
         if(exception is null && this.Exception is null)
