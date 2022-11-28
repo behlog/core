@@ -36,6 +36,21 @@ public static partial class ValidatorExtensions
     }
 
 
+    public static ValidatorResult1 HasMinLenght(
+        this ValidatorResult1 result, string? value, int minLen,
+        string fieldName, string errorMessage, string errorCode = "")
+    {
+        if (!MinLenValidator.IsValid(value, minLen))
+        {
+            return result.WithError(ValidationError1
+                .Create(fieldName, errorCode, errorMessage)
+            );
+        }
+
+        return result;
+    }
+
+
     public static ValidatorResult1 IsEmailFormatCorrect(
         this ValidatorResult1 result, string email, string fieldName,
         string errorMessage, string errorCode = "")
