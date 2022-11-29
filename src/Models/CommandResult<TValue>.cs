@@ -80,6 +80,12 @@ public class CommandResult<TValue> : CommandResult where TValue : class
         Value = value;
         return this;
     }
-    
-    
+
+    public IReadOnlyCollection<string> GetErrorMessages()
+    {
+        var result = new List<string>();
+        if (!HasError) return result;
+        return result;
+        
+    }
 }
