@@ -28,6 +28,8 @@ namespace Behlog.Core
 
         public string BaseUrl => $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
 
+        public Guid? WebsiteId { get; }
+        
         public string UserAgent {
             get {
                 return Request.Headers[__USER_AGENT_KEY][0];

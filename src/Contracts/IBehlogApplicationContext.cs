@@ -14,5 +14,6 @@ namespace Behlog.Core.Contracts
         string? IpAddress { get; }
         string AbsoluteUrl { get; }
         string? UrlReferer { get; }
+        Guid? WebsiteId { get; }
     }
 }
