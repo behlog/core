@@ -5,7 +5,26 @@ namespace Behlog.Core.Validations;
 public static partial class ValidatorExtensions
 {
 
+    public static ValidatorResult ThrowExceptionIfIdIsNotValid(this ValidatorResult result, Guid id)
+    {
+        if (id == default)
+        {
+            throw new BehlogInvalidEntityIdException();
+        }
 
+        return result;
+    }
+
+    public static ValidatorResult ThrowExceptionIfIdIsNotValid(this ValidatorResult result, Guid? id)
+    {
+        if (id.HasValue && id.Value == default)
+        {
+            throw new BehlogInvalidEntityIdException();
+        }
+
+        return result;
+    }
+    
     public static ValidatorResult IsRequired(
         this ValidatorResult result, string? value, string fieldName, 
         string errorMessage, string errorCode = "")
