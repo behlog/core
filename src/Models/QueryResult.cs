@@ -1,10 +1,10 @@
-using Behlog.Core.Validations;
 using Behlog.Extensions;
+using Behlog.Core.Validations;
 
 namespace Behlog.Core.Models;
 
 /// <summary>
-/// Represents a collection of results from a Query. 
+/// Represents a collection of paged results from a Query. 
 /// </summary>
 /// <typeparam name="TResult">type of Query Results.</typeparam>
 public class QueryResult<TResult> where TResult : class
