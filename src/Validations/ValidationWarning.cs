@@ -22,5 +22,10 @@ public class ValidationWarning : ValidationResult, IValidationResult
         this.FieldName = fieldName;
         return this;
     }
-    
+
+
+    public override string ToString()
+    {
+        return $"[Warn] {FieldName}: {Message}";
+    }
 }

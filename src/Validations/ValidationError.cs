@@ -78,5 +78,16 @@ public class ValidationError : ValidationResult, IValidationResult
         if (exception is null && this.Exception != null)
             throw exception;
     }
-    
+
+
+    public override string ToString()
+    {
+        if (Exception != null)
+        {
+            return $"Exception : {Exception.GetBaseException().Message}" + Environment.NewLine +
+                   $"StackTrace : {Exception.GetBaseException().StackTrace}";
+        }
+
+        return $"[Error] {FieldName}: {ErrorCode} {Message}";
+    }
 }

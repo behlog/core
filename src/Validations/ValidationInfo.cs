@@ -7,7 +7,6 @@ public class ValidationInfo : ValidationResult, IValidationResult
     private ValidationInfo() : base(BehlogValidationLevel.Info)
     {
     }
-
     
     public static ValidationInfo Create(string message)
     {
@@ -22,5 +21,11 @@ public class ValidationInfo : ValidationResult, IValidationResult
     {
         this.FieldName = fieldName;
         return this;
+    }
+
+
+    public override string ToString()
+    {
+        return $"[INF] {FieldName}: {Message}";
     }
 }

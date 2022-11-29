@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Behlog.Core.Validations;
 
 public class ValidatorResult
@@ -27,13 +29,47 @@ public class ValidatorResult
     public IReadOnlyCollection<ValidationError> Errors
         => _errors.ToList();
 
+    public string ErrorsAsString()
+    {
+        if (!_errors.Any()) return string.Empty;
+
+        var sb = new StringBuilder();
+        foreach (var err in _errors)
+        {
+            sb.AppendLine(err.ToString());
+        }
+        return sb.ToString();
+    }
 
     public IReadOnlyCollection<ValidationWarning> Warnings
         => _warnings.ToList();
+    
+    public string WarningsAsString()
+    {
+        if (!_warnings.Any()) return string.Empty;
 
+        var sb = new StringBuilder();
+        foreach (var wrn in _warnings)
+        {
+            sb.AppendLine(wrn.ToString());
+        }
+        return sb.ToString();
+    }
     
     public IReadOnlyCollection<ValidationInfo> Info
         => _infos.ToList();
+
+    public string InfoAsString()
+    {
+        if (!_infos.Any()) return string.Empty;
+
+        var sb = new StringBuilder();
+        foreach (var inf in (_infos))
+        {
+            sb.AppendLine(inf.ToString());
+        }
+        return sb.ToString();
+    }
 
     public static ValidatorResult Create()
     {
