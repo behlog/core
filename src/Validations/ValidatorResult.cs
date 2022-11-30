@@ -150,5 +150,35 @@ public class ValidatorResult
         _infos.Add(info);
         _items.Add(info);
     }
-    
+
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        if (HasError)
+        {
+            sb.AppendLine("[Errors]:");
+            foreach (var err in _errors)
+                sb.AppendLine(err.ToString());
+            sb.AppendLine("");
+        }
+
+        if (HasWarning)
+        {
+            sb.AppendLine("[Warnings]:");
+            foreach (var w in _warnings)
+                sb.AppendLine(w.ToString());
+            sb.AppendLine("");
+        }
+
+        if (_infos.Any())
+        {
+            sb.AppendLine("[Info]:");
+            foreach (var i in _infos)
+                sb.AppendLine(i.ToString());
+            sb.AppendLine("");
+        }
+
+        return sb.ToString();
+    }
 }
