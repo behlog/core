@@ -21,5 +21,5 @@ public class BehlogFileUploadItemConfig
 {
     public string Name { get; set; }
     public string? Extensions { get; set; }
-    public int? MaxSize { get; set; }
+    public double? MaxSize { get; set; }
 }
