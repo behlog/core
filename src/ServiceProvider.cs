@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Behlog.Core.Contracts;
 using Behlog.Core;
+using Microsoft.Extensions.Configuration;
+using Behlog.Core.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -18,11 +20,15 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>.
         /// <returns></returns>
-        public static IServiceCollection AddBehlogCore(this IServiceCollection services) {
+        public static IServiceCollection AddBehlogCore(
+            this IServiceCollection services, IConfiguration configuration) {
+            
             services.AddHttpContextAccessor();
             services.AddScoped<IBehlogApplicationContext, BehlogApplicationContext>();
             services.AddScoped<ISystemDateTime, SystemDateTime>();
             services.AddScoped<IBehlogMediatorAssistant, BehlogMediatorAssistant>();
+            var options = configuration.Get<BehlogOptions>();
+            services.AddSingleton<BehlogOptions>(options);
             services.AddBehlogCQRS();
             
             return services;
