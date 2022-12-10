@@ -4,7 +4,7 @@ namespace Behlog.Core.Models;
 
 public class CommandResult
 {
-    protected ICollection<IValidationResult> _validations;
+    protected readonly ICollection<IValidationResult> _validations;
 
     protected CommandResult()
     {
@@ -14,10 +14,15 @@ public class CommandResult
         _infos = new List<ValidationInfo>();
     }
 
-    protected ICollection<ValidationError> _errors;
-    protected ICollection<ValidationWarning> _warnings;
-    protected ICollection<ValidationInfo> _infos;
+    protected readonly ICollection<ValidationError> _errors;
+    protected readonly ICollection<ValidationWarning> _warnings;
+    protected readonly ICollection<ValidationInfo> _infos;
 
+    public IReadOnlyCollection<ValidationError> Errors => _errors.ToList();
+
+    public IReadOnlyCollection<ValidationWarning> Warnings => _warnings.ToList();
+
+    public IReadOnlyCollection<ValidationInfo> Information => _infos.ToList();
 
     public bool HasError => _errors.Any();
 
@@ -98,5 +103,14 @@ public class CommandResult
         _infos.Add(info);
     }
     
-    
+    public IReadOnlyCollection<string> GetErrorMessages()
+    {
+        var result = new List<string>();
+        if (!HasError) return result;
+        
+        foreach(var err in _errors)
+            result.Add(err.Message);
+        
+        return result;
+    }
 }

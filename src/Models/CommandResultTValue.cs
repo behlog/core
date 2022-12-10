@@ -81,11 +81,5 @@ public class CommandResult<TValue> : CommandResult where TValue : class
         return this;
     }
 
-    public IReadOnlyCollection<string> GetErrorMessages()
-    {
-        var result = new List<string>();
-        if (!HasError) return result;
-        return result;
-        
-    }
+    
 }
