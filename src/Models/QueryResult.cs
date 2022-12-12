@@ -26,7 +26,7 @@ public class QueryResult<TResult> where TResult : class
         Results = results.ToList();
     }
 
-    public IReadOnlyCollection<TResult> Results { get; }
+    public IReadOnlyCollection<TResult> Results { get; protected set; }
     
     public bool HasError => _errors.Any();
 
@@ -57,15 +57,21 @@ public class QueryResult<TResult> where TResult : class
         return this;
     }
 
-    public QueryResult<TResult> WithPageNumber(int pageNumber)
+    public QueryResult<TResult> WithPageNumber(long pageNumber)
     {
         PageNumber = pageNumber;
         return this;
     }
 
-    public QueryResult<TResult> WithTotalCount(int totalCount)
+    public QueryResult<TResult> WithTotalCount(long totalCount)
     {
         TotalCount = totalCount;
+        return this;
+    }
+
+    public QueryResult<TResult> WithResults(IReadOnlyCollection<TResult> results)
+    {
+        Results = results;
         return this;
     }
 
