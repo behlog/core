@@ -32,7 +32,7 @@ public class QueryResult<TResult> where TResult : class
 
     public IReadOnlyCollection<ValidationError> Errors => _errors.ToList();
     
-    public long PageNumber { get; protected set; }
+    public int PageNumber { get; protected set; }
     
     public int PageSize { get; protected set; }
     
@@ -57,7 +57,7 @@ public class QueryResult<TResult> where TResult : class
         return this;
     }
 
-    public QueryResult<TResult> WithPageNumber(long pageNumber)
+    public QueryResult<TResult> WithPageNumber(int pageNumber)
     {
         PageNumber = pageNumber;
         return this;
