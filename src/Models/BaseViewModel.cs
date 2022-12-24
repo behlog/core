@@ -1,4 +1,5 @@
 using System.Text;
+using Behlog.Core.Validations;
 using Behlog.Extensions;
 
 namespace Behlog.Core.Models;
@@ -62,6 +63,14 @@ public abstract class BaseViewModel
             }
 
             return sb.ToString();
+        }
+    }
+
+    public void WithValidationErrors(IReadOnlyCollection<ValidationError> errors)
+    {
+        foreach (var err in errors)
+        {
+            AddError(err.Message, err.FieldName);
         }
     }
 
