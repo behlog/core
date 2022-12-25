@@ -3,7 +3,7 @@ namespace Behlog.Core.Models;
 /// <summary>
 /// Base class for Query filter data classes. Can be used to filter query results.
 /// </summary>
-public class QueryFilter
+public class QueryOptions
 {
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 10;
@@ -11,18 +11,18 @@ public class QueryFilter
     public string OrderBy { get; set; }
     public bool OrderDesc { get; set; }
 
-    public static QueryFilter New()
+    public static QueryOptions New()
     {
-        return new QueryFilter();
+        return new QueryOptions();
     }
 
-    public QueryFilter WithPageNumber(int pageNum)
+    public QueryOptions WithPageNumber(int pageNum)
     {
         PageNumber = pageNum;
         return this;
     }
 
-    public QueryFilter WithPageSize(int pageSize)
+    public QueryOptions WithPageSize(int pageSize)
     {
         PageSize = pageSize;
         return this;
