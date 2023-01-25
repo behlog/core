@@ -1,6 +1,6 @@
 namespace Behlog.Core;
 
-public enum EntityStatusEnum
+public enum EntityStatus
 {
     Deleted = -1,
     Disabled = 0,

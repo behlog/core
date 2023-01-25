@@ -26,7 +26,7 @@ public abstract class MetaBase<TOwnerId> : ValueObject
         Description = description;
         Category = category;
         OrderNum = orderNum;
-        Status = EntityStatusEnum.Enabled;
+        Status = EntityStatus.Enabled;
         LangId = langId;
     }
     
@@ -35,7 +35,7 @@ public abstract class MetaBase<TOwnerId> : ValueObject
     public string MetaKey { get; protected set; }
     public string? MetaValue { get; protected set; }
     public string? MetaType { get; protected set; }
-    public EntityStatusEnum Status { get; protected set; }
+    public EntityStatus Status { get; protected set; }
     public Guid? LangId { get; protected set; }
     public string? Description { get; protected set; }
     public string? Category { get; protected set; }
