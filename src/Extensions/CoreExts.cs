@@ -34,4 +34,12 @@ public static class CoreExts
             BehlogValidationLevel.Warning => "[Warning]",
             _=> "[!NULL]"
         };
+
+    public static void ThrowArgumentIsNullExceptionIfListIsNullOrEmpty<T>(
+        this IReadOnlyCollection<T> list, string name = "") where T: class
+    {
+        if (name.IsNullOrEmpty()) name = "list";
+        if(list is null || !list.Any())
+            throw new ArgumentNullException(name);
+    }
 }
