@@ -42,4 +42,12 @@ public static class CoreExts
         if(list is null || !list.Any())
             throw new ArgumentNullException(name);
     }
+
+    public static bool IsNullOrEmpty<T>(this IReadOnlyCollection<T> list) where T: class {
+        return (list is null || !list.Any());
+    }
+
+	public static bool IsNullOrEmpty<T>(this ICollection<T> list) where T : class {
+		return (list is null || !list.Any());
+	}
 }
