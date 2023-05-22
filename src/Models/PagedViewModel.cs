@@ -5,7 +5,7 @@ public abstract class PagedViewModel<T> where T: class
     
     public IReadOnlyCollection<T> Data { get; set; }
     
-    public int TotalCount { get; set; }
+    public long TotalCount { get; set; }
     
     public int PageNumber { get; set; }
 
